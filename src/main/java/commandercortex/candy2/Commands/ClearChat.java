@@ -23,10 +23,10 @@ public class ClearChat implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        if(groupManager.MODPERMS(player)){
-            clear();
-        }else
+        if(!groupManager.MODPERMS(player))
             Messages.Message(player, "&cError, This Command requires Moderator Permissions!");
+
+        clear();
         return false;
     }
 }

@@ -18,6 +18,7 @@ public class PlayerSetup {
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(_file);
         yaml.addDefault("Name:", player.getName());
         yaml.addDefault("Group:", 0);
+        yaml.addDefault("Muted:", false);
         yaml.options().copyDefaults(true);
         try {yaml.save(_file);} catch (IOException e) {throw new RuntimeException(e);}
 

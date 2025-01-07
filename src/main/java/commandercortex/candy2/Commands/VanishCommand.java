@@ -11,23 +11,26 @@ public class VanishCommand implements CommandExecutor {
     GroupManager groupManager = new GroupManager();
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(sender instanceof Player))
+        if (!(sender instanceof Player)){
             sender.sendMessage("Error, This is a Player Command!");
+            return false;
+        }
 
-        assert sender instanceof Player;
         Player player = (Player) sender;
 
-        if(groupManager.MODPERMS(player)){
-            player.setInvisible(!player.isInvisible());
-            groupManager.TabListManager();
-
-            if(player.isInvisible()){
-                Messages.Message(player, "&aVanish toggled &bON!");
-            }else{
-                Messages.Message(player, "&aVanish Toggled &cOFF!");
-            }
-        }else
+        if (!groupManager.MODPERMS(player)) {
             Messages.Message(player, "&cError, This Command requires Moderator Permissions!");
+            return false;
+        }
+
+        if (player.isInvisible()){
+            Messages.Message(player, "&aVanish Toggled &cOFF!");
+            player.setInvisible(false);
+        }else {
+            Messages.Message(player, "&aVanish toggled &bON!");
+            player.setInvisible(true);
+        }
+        groupManager.TabListManager();
         return false;
     }
 }

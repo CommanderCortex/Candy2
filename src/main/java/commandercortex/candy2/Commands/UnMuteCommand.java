@@ -1,19 +1,20 @@
 package commandercortex.candy2.Commands;
 
+import commandercortex.candy2.Global.MuteStatus;
 import commandercortex.candy2.Permissions.GroupManager;
 import commandercortex.candy2.Utils.PlayerMessages.Messages;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class GamemodeCommand implements CommandExecutor {
+public class UnMuteCommand implements CommandExecutor {
     GroupManager groupManager = new GroupManager();
+    MuteStatus muteStatus = new MuteStatus();
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
+        if(!(sender instanceof Player)){
             sender.sendMessage("Error, This is a Player Command!");
             return false;
         }
@@ -21,7 +22,7 @@ public class GamemodeCommand implements CommandExecutor {
         Player player = (Player) sender;
         Player target = Bukkit.getPlayer(args[0]);
 
-        if(!groupManager.ADMINPERMS(player)) {
+        if(!groupManager.MODPERMS(player)) {
             Messages.Message(player, "&cError, This Command requires Administrator Permissions!");
             return false;
         }
@@ -31,22 +32,9 @@ public class GamemodeCommand implements CommandExecutor {
             return false;
         }
 
-        switch (args[1]) {
-            case "c":
-                target.setGameMode(GameMode.CREATIVE);
-                Messages.Message(player, "Set " + player.getDisplayName() + "'s Gamemode to Creative");
-                break;
-            case "s":
-                target.setGameMode(GameMode.SURVIVAL);
-                Messages.Message(player, "Set " + player.getDisplayName() + "'s Gamemode to Survival");
-                break;
-            case "a":
-                target.setGameMode(GameMode.ADVENTURE);
-                Messages.Message(player, "Set " + player.getDisplayName() + "'s Gamemode to Adventure");
-                break;
-            default:
-                Messages.Message(player, "&cError, Gamemode Not Found?!");
-        }
+        muteStatus.setMuteStatus(target, false);
+        Messages.Message(player, "&aUn-Muted player: " + target.getDisplayName());
+
         return false;
     }
 }

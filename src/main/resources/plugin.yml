@@ -14,3 +14,9 @@ commands:
     description: Vanishes a Player (for staff)
   cc:
     description: Clears Chat
+  help:
+    description: Help menu
+  mute:
+    description: Mutes a player
+  unmute:
+    description: unmutes a player

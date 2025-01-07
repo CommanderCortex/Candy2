@@ -12,9 +12,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class ChatFunctions implements Listener {
     GroupManager groupManager = new GroupManager();
+    MuteStatus muteStatus = new MuteStatus();
     @EventHandler
     public void Chat(AsyncPlayerChatEvent chatEvent){
-        char _Message;
 
         chatEvent.setCancelled(true);
         Player player = chatEvent.getPlayer();
@@ -24,11 +24,14 @@ public class ChatFunctions implements Listener {
 
         String FormattedMessage = "&7[&eChat&r&7] &r>> " + PlayerPrefix + "&7[&r" + DisplayName + "&7]&r" + " &a>> &r"+ Message;
 
-        if(!player.isInvisible()){
-            Bukkit.broadcastMessage(Color.C(FormattedMessage));
-        }else {
-            chatEvent.setCancelled(true);
+        if(player.isInvisible()) {
             Messages.Message(player, "&cError&r, You can't send messages will in Vanish!");
+            return;
         }
+        if(muteStatus.getMuteStatus(player)){
+            Messages.Message(player, "&cError&r, You can't send messages well Muted!");
+            return;
+        }
+        Bukkit.broadcastMessage(Color.C(FormattedMessage));
     }
 }

@@ -33,7 +33,6 @@ public class GroupManager extends Groups {
             return Color.C("&7[&4&lADMIN&r&7] &r");
         if(group == Moderator)
             return Color.C("&7[&6&lMOD&r&7] &r");
-
         return "";
     }
     public void TabListManager(){
@@ -41,9 +40,8 @@ public class GroupManager extends Groups {
             Scoreboard scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
             for (Player player1 : Bukkit.getOnlinePlayers()){
                 if(player1.isInvisible()){
-                    for(Player all : Bukkit.getOnlinePlayers()){
-                        all.setInvisible(true);
-                    }
+                    scoreboard.resetScores(player1.getDisplayName());
+                    continue; //Skip adding invisible players
                 }
                 String prefix = GroupPrefix(getGroup(player));
                 Team team = scoreboard.registerNewTeam(player1.getDisplayName());

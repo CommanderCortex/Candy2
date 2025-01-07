@@ -6,9 +6,14 @@ import commandercortex.candy2.Files.PluginFiles;
 import commandercortex.candy2.Global.ChatFunctions;
 import commandercortex.candy2.Players.PlayerJoin;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permissible;
+import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.UUID;
 
 public final class Candy2 extends JavaPlugin {
 
@@ -47,5 +52,8 @@ public final class Candy2 extends JavaPlugin {
         Objects.requireNonNull(Bukkit.getPluginCommand("gm")).setExecutor(new GamemodeCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("v")).setExecutor(new VanishCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("cc")).setExecutor(new ClearChat());
+        Objects.requireNonNull(Bukkit.getPluginCommand("help")).setExecutor(new HelpCommand());
+        Objects.requireNonNull(Bukkit.getPluginCommand("mute")).setExecutor(new MuteCommand());
+        Objects.requireNonNull(Bukkit.getPluginCommand("unmute")).setExecutor(new UnMuteCommand());
     }
 }
